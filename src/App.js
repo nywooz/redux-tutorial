@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { connect } from "react-redux";
+import { updateUser } from "./actions/user-actions";
 
 class App extends Component {
-  state = { name: "" };
-
-  handleChange(e) {
-    this.setState({ name: e.target.value });
+  onUpdateUser(e) {
+    this.props.onUpdateUser(e.target.value);
   }
 
   render() {
@@ -32,9 +31,10 @@ class App extends Component {
 
         <input
           type="text"
-          defaultValue={this.state.name}
-          onChange={this.handleChange.bind(this)}
+          defaultValue={""}
+          onChange={this.onUpdateUser.bind(this)}
         />
+        {this.props.user}
       </div>
     );
   }
@@ -45,6 +45,10 @@ const mapStateToProps = state => ({
   products: state.products,
   user: state.user
 });
+
+const mapActionsToProps = {
+  onUpdateUser: updateUser
+};
 
 //  pass component to connect
 
