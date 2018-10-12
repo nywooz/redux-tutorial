@@ -19,12 +19,11 @@ const allReducers = combineReducers({
 });
 
 
-
 /**
  *
  *  store
  */
-const store = createStore(
+export const store = createStore(
   allReducers,
   {
     products: [{ name: "iPhone" }],

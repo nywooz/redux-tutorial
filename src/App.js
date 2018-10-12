@@ -3,15 +3,21 @@ import logo from "./logo.svg";
 import "./App.css";
 import { connect } from "react-redux";
 import { updateUser } from "./actions/user-actions";
+import { store } from "./index";
 
 class App extends Component {
   onUpdateUser(e) {
     this.props.onUpdateUser(e.target.value);
   }
 
+  getStateBtn(e) {
+    console.log(store.getState());
+  }
+
+  componentDidMount() {}
+
   render() {
     console.log(this.props);
-
     return (
       <div className="App">
         <header className="App-header">
@@ -29,9 +35,13 @@ class App extends Component {
           </a>
         </header>
 
+        <button type="button" className="btn" onClick={this.getStateBtn}>
+          Show State
+        </button>
+
         <input
           type="text"
-          defaultValue={""}
+          defaultValue={store.getState().user}
           onChange={this.onUpdateUser.bind(this)}
         />
         {this.props.user}
@@ -58,7 +68,6 @@ const mapActionsToProps = {
 //  easily so we dnt need to dispatch in the components themselves.
 //  We can call functions that will auto dispatch to the store
 //
-
 export default connect(
   mapStateToProps,
   mapActionsToProps
